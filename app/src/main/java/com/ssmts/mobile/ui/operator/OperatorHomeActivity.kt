@@ -1,9 +1,12 @@
 package com.ssmts.mobile.ui.operator
 
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.animation.LinearInterpolator
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -18,8 +21,10 @@ import com.ssmts.mobile.data.remote.RejectReservationRequest
 import com.ssmts.mobile.data.remote.ReservationDto
 import com.ssmts.mobile.data.remote.VerifyTransferRequest
 import com.ssmts.mobile.data.remote.safeApi
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.ssmts.mobile.databinding.ActivityOperatorHomeBinding
 import com.ssmts.mobile.databinding.DialogBackupCodeBinding
+import com.ssmts.mobile.databinding.DialogScanQrBinding
 import com.ssmts.mobile.ui.auth.LoginActivity
 import com.ssmts.mobile.ui.reservations.ReservationAdapter
 import kotlinx.coroutines.launch
@@ -54,15 +59,7 @@ class OperatorHomeActivity : AppCompatActivity() {
         binding.list.adapter = adapter
         binding.list.isNestedScrollingEnabled = false
 
-        binding.btnScan.setOnClickListener {
-            scanLauncher.launch(
-                ScanOptions()
-                    .setDesiredBarcodeFormats(ScanOptions.QR_CODE)
-                    .setPrompt("Scan the prosumer's transaction QR pass")
-                    .setBeepEnabled(true)
-                    .setOrientationLocked(true)
-            )
-        }
+        binding.btnScan.setOnClickListener { showScanSheet() }
 
         binding.chipPending.setOnClickListener { switchTab("Pending") }
         binding.chipApproved.setOnClickListener { switchTab("Approved") }
@@ -183,6 +180,55 @@ class OperatorHomeActivity : AppCompatActivity() {
             }
             .setNeutralButton("Close", null)
             .show()
+    }
+
+    // ── Scan sheet (camera or manual payload) ──────────────────────────
+
+    /**
+     * Bottom sheet with a scanning animation, a manual payload field
+     * (for devices/emulators without a camera) and a camera launcher.
+     */
+    private fun showScanSheet() {
+        val sheetBinding = DialogScanQrBinding.inflate(LayoutInflater.from(this))
+        val sheet = BottomSheetDialog(this)
+        sheet.setContentView(sheetBinding.root)
+
+        // Sweep the amber scan line up and down inside the frame.
+        var animator: ObjectAnimator? = null
+        sheetBinding.scanFrame.post {
+            val travel = (sheetBinding.scanFrame.height - sheetBinding.scanLine.height).toFloat()
+            animator = ObjectAnimator.ofFloat(sheetBinding.scanLine, View.TRANSLATION_Y, 0f, travel).apply {
+                duration = 1400
+                repeatMode = ValueAnimator.REVERSE
+                repeatCount = ValueAnimator.INFINITE
+                interpolator = LinearInterpolator()
+                start()
+            }
+        }
+        sheet.setOnDismissListener { animator?.cancel() }
+
+        sheetBinding.btnVerifyPayload.setOnClickListener {
+            val payload = sheetBinding.inputPayload.text?.toString()?.trim().orEmpty()
+            if (payload.isEmpty()) {
+                sheetBinding.layoutPayload.error = "Paste the QR payload text"
+                return@setOnClickListener
+            }
+            sheet.dismiss()
+            verify(VerifyTransferRequest(payload = payload))
+        }
+
+        sheetBinding.btnUseCamera.setOnClickListener {
+            sheet.dismiss()
+            scanLauncher.launch(
+                ScanOptions()
+                    .setDesiredBarcodeFormats(ScanOptions.QR_CODE)
+                    .setPrompt("Scan the prosumer's transaction QR pass")
+                    .setBeepEnabled(true)
+                    .setOrientationLocked(true)
+            )
+        }
+
+        sheet.show()
     }
 
     // ── Verify (QR or backup code) ─────────────────────────────────────

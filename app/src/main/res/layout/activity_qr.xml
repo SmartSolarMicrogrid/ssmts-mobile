@@ -103,6 +103,15 @@
                     android:textSize="32sp"
                     android:textStyle="bold"
                     tools:text="482913" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnCopyPayload"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="16dp"
+                    android:text="Copy Payload Text"
+                    app:cornerRadius="12dp" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 

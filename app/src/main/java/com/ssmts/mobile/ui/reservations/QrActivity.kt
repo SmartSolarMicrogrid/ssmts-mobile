@@ -43,6 +43,15 @@ class QrActivity : AppCompatActivity() {
                     binding.txtBackupCode.text = qr.backupCode
                     binding.txtValidity.text =
                         "Valid ${TimeUtil.dateTime(qr.validFromUtc)} – ${TimeUtil.dateTime(qr.validToUtc)}"
+
+                    // Lets the operator paste the payload when no camera is available.
+                    binding.btnCopyPayload.setOnClickListener {
+                        val clipboard = getSystemService(CLIPBOARD_SERVICE)
+                            as android.content.ClipboardManager
+                        clipboard.setPrimaryClip(
+                            android.content.ClipData.newPlainText("SSMTS QR payload", qr.payload))
+                        Toast.makeText(this@QrActivity, "Payload copied.", Toast.LENGTH_SHORT).show()
+                    }
                 }
                 is ApiResult.Error -> {
                     Toast.makeText(this@QrActivity, result.message, Toast.LENGTH_LONG).show()
