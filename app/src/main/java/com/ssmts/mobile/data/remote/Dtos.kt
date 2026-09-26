@@ -113,7 +113,7 @@ data class ModifyReservationRequest(
 )
 
 data class RejectReservationRequest(
-    val reason: String
+    val reason: String = "Rejected by operator"
 )
 
 data class TransferSummaryDto(
