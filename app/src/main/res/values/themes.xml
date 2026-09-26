@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.Ssmts" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/solar_amber</item>
+        <item name="colorOnPrimary">@color/surface</item>
+        <item name="colorPrimaryContainer">@color/solar_amber_light</item>
+        <item name="colorOnPrimaryContainer">@color/solar_amber_dark</item>
+        <item name="colorSecondary">@color/solar_orange</item>
+        <item name="colorOnSecondary">@color/surface</item>
+        <item name="colorError">@color/danger</item>
+        <item name="android:colorBackground">@color/surface_alt</item>
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorOnSurface">@color/ink</item>
+        <item name="colorOnSurfaceVariant">@color/ink_soft</item>
+        <item name="colorOutline">@color/outline</item>
+        <item name="android:statusBarColor">@color/solar_amber_dark</item>
+        <item name="android:navigationBarColor">@color/surface</item>
+    </style>
+</resources>
