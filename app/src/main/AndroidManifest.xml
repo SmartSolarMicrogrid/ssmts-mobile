@@ -35,6 +35,10 @@
             android:name=".ui.auth.RegisterActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".ui.prosumer.DashboardActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>
