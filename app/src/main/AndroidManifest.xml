@@ -39,6 +39,10 @@
             android:name=".ui.prosumer.DashboardActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".ui.nodes.NodesMapActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>
