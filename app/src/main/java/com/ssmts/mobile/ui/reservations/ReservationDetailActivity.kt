@@ -36,6 +36,12 @@ class ReservationDetailActivity : AppCompatActivity() {
         binding.btnBack.setOnClickListener { finish() }
         binding.btnModify.setOnClickListener { showModifyDialog() }
         binding.btnCancel.setOnClickListener { confirmCancel() }
+        binding.btnQr.setOnClickListener {
+            startActivity(
+                android.content.Intent(this, QrActivity::class.java)
+                    .putExtra(QrActivity.EXTRA_ID, reservationId)
+            )
+        }
     }
 
     override fun onResume() {
@@ -69,6 +75,10 @@ class ReservationDetailActivity : AppCompatActivity() {
 
         binding.btnModify.visibility = if (r.canModify) View.VISIBLE else View.GONE
         binding.btnCancel.visibility = if (r.canCancel) View.VISIBLE else View.GONE
+
+        // QR pass exists once the operator approves the booking (BR-12).
+        val hasQr = r.status.equals("Approved", true) || r.status.equals("InProgress", true)
+        binding.btnQr.visibility = if (hasQr) View.VISIBLE else View.GONE
 
         // Completed transfers show final settlement details.
         val tx = r.transaction
