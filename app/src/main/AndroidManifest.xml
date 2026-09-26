@@ -63,6 +63,14 @@
             android:name=".ui.prosumer.ProfileActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".ui.operator.OperatorHomeActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.operator.FinalizeTransferActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>
