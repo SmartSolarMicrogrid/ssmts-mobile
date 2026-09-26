@@ -3,6 +3,7 @@ package com.ssmts.mobile
 import android.app.Application
 import com.ssmts.mobile.data.local.DbHelper
 import com.ssmts.mobile.data.local.SessionManager
+import com.ssmts.mobile.data.remote.ApiClient
 
 /**
  * Application entry point — exposes app-wide singletons for the
@@ -20,6 +21,7 @@ class SsmtsApp : Application() {
         super.onCreate()
         db = DbHelper(this)
         session = SessionManager(this)
+        ApiClient.init(this)
     }
 
     companion object {
