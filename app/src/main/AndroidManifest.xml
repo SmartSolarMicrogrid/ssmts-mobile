@@ -51,6 +51,10 @@
             android:name=".ui.reservations.ReservationDetailActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".ui.reservations.ReservationListActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>
