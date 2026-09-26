@@ -43,6 +43,14 @@
             android:name=".ui.nodes.NodesMapActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".ui.reservations.CreateReservationActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.reservations.ReservationDetailActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>
