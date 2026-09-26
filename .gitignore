@@ -1,0 +1,27 @@
+# Gradle
+.gradle/
+build/
+app/build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Local configuration (SDK path, API keys)
+local.properties
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.kotlin/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs / keystores
+*.log
+*.jks
+*.keystore
+captures/
+
+# Claude working notes
+CLAUDE.md
