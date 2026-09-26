@@ -59,6 +59,10 @@
             android:name=".ui.reservations.QrActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".ui.prosumer.ProfileActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>
