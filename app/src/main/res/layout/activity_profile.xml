@@ -78,6 +78,7 @@
                             android:id="@+id/txtNic"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textIsSelectable="true"
                             android:textColor="@color/ink"
                             android:textSize="17sp"
                             android:textStyle="bold"
@@ -109,6 +110,7 @@
                     android:id="@+id/txtEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textIsSelectable="true"
                     android:textColor="@color/ink"
                     android:textSize="15sp"
                     tools:text="dasun@example.com" />
